@@ -1,0 +1,24 @@
+from google.colab import drive
+drive.mount('/content/drive')
+
+!ls '/content/drive/My Drive/yolo'
+
+!unzip '/content/drive/My Drive/yolo/datasets.zip' -d '/content/drive/My Drive/yolo/custom_data'
+
+!git clone 'https://github.com/AlexeyAB/darknet.git' '/content/drive/My Drive/yolo/darknet'
+
+%cd /content/drive/My Drive/yolo/darknet
+
+!make
+
+%cd /content/drive/My Drive/yolo
+
+!darknet/darknet
+
+%cd /content/drive/My Drive/yolo
+
+!python custom_data/creating-files-data-and-name.py
+
+!python custom_data/creating-train-and-test-txt-files.py
+
+!darknet/darknet detector train custom_data/labelled_data.data darknet/cfg/yolov3_custom.cfg custom_weight/darknet53.conv.74 -dont_show
